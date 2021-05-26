@@ -1,0 +1,38 @@
+<div class="table-container">
+  <div *ngIf="books">
+    <table
+      class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth"
+    >
+      <thead>
+        <tr>
+          <th id="">Id</th>
+          <th id="">Name</th>
+          <th id="">Price</th>
+          <th id="">Category</th>
+          <th id="">Author</th>
+          <th id="">Edit</th>
+          <th id="">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books">
+          <td>{{ book.id }}</td>
+          <td>{{ book.name }}</td>
+          <td>{{ book.price }}</td>
+          <td>{{ book.category }}</td>
+          <td>{{ book.author }}</td>
+          <td>
+            <button class="button is-primary" (click)="editBook(book)">
+              Edit
+            </button>
+          </td>
+          <td>
+            <button class="button is-danger" (click)="deleteBook(book.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
