@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BookService } from 'src/app/services/book.service';
 import { Book } from 'src/app/shared/models/book.model';
 
 @Component({
@@ -11,17 +11,26 @@ export class HomeComponent implements OnInit {
 
   books: Book[] = [];
 
-  constructor() { }
+  constructor(private bookService: BookService) { }
 
   ngOnInit(): void {
+    this.bookService.fetchBooks().subscribe(books => {
+      this.books = books;
+    });
   }
 
-  deleteBook(id: string) {
-
+  deleteBook(id: string): void {
+    this.bookService.deleteBook(id).subscribe(book => {
+      console.log(book);
+    });
+    this.bookService.fetchBooks().subscribe(books => {
+      this.books = books;
+    });
   }
 
-  editBook(payload: any): void {
-
+  editBook(payload: Book): void {
+    this.bookService.updateBook(payload).subscribe(book => {
+      console.log(book);
+    });
   }
-
 }

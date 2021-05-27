@@ -1,1 +1,97 @@
-<p>create works!</p>
+<div class="container">
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <div class="field-body">
+        <div class="control">
+          <label class="label">Id</label>
+          <input class="input" type="text" placeholder="Identificator" formControlName="id" #id [readonly]="true" />
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-body">
+        <div class="control">
+          <label class="label">Name</label>
+          <input type="text" class="input" placeholder="Book name" formControlName="name" #name />
+          <div *ngIf="
+              bookForm.controls['name'].invalid &&
+              (bookForm.controls['name'].dirty ||
+                bookForm.controls['name'].touched)
+            " class="input is-danger">
+            <div *ngIf="bookForm.controls['name'].errors" class="help is-danger">
+              Name is required.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-body">
+        <div class="control">
+          <label for="price" class="label">Price</label>
+          <input type="number" class="input" placeholder="Price" formControlName="price" #price />
+          <div *ngIf="
+              bookForm.controls['price'].invalid &&
+              (bookForm.controls['price'].dirty ||
+                bookForm.controls['price'].touched)
+            " class="input is-danger">
+            <div *ngIf="bookForm.controls['price'].errors" class="help is-danger">
+              Price is required.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-body">
+        <div class="control">
+          <label for="category" class="label">Category</label>
+          <input type="text" class="input" placeholder="Category" formControlName="category" #category />
+          <div *ngIf="
+              bookForm.controls['category'].invalid &&
+              (bookForm.controls['category'].dirty ||
+                bookForm.controls['category'].touched)
+            " class="input is-danger">
+            <div *ngIf="bookForm.controls['category'].errors" class="help is-danger">
+              Category is required.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-body">
+        <div class="control">
+          <label for="author" class="label">Author</label>
+          <input type="text" class="input" placeholder="Author" formControlName="author" #author />
+          <div *ngIf="
+              bookForm.controls['author'].invalid &&
+              (bookForm.controls['author'].dirty ||
+                bookForm.controls['author'].touched)
+            " class="input is-danger">
+            <div *ngIf="bookForm.controls['author'].errors" class="help is-danger">
+              Author is required.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field-label">
+      <!-- Left empty for spacing -->
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="field is-grouped">
+          <div class="control">
+            <button type="submit" class="button is-primary" [disabled]="bookForm.pristine || bookForm.invalid">
+              Submit
+            </button>
+          </div>
+          <div class="control">
+            <button class="button is-light" (click)="clearForm()">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
