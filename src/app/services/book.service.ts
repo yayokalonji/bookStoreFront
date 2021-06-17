@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class BookService {
+
   constructor(private http: HttpClient) {}
 
   fetchBooks(): Observable<Book[]> {
@@ -18,7 +19,7 @@ export class BookService {
     return this.http.post<Book>(`${environment.url}`, payload);
   }
 
-  updateBook(payload: Book): Observable<Book> {
+  updateBook(payload: Partial<Book>): Observable<Book> {
     return this.http.put<Book>(`${environment.url}`, payload);
   }
 

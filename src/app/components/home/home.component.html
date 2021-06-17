@@ -1,5 +1,5 @@
 <div class="table-container">
-  <div *ngIf="books">
+  <div>
     <table
       class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth"
       aria-describedby
@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let book of books">
+        <tr *ngFor="let book of books$ | async">
           <td>{{ book.id }}</td>
           <td>{{ book.name }}</td>
           <td>{{ book.price }}</td>
