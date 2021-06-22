@@ -18,7 +18,7 @@ export const initialState = adapter.getInitialState({
 export const bookReducer = createReducer(
   initialState,
   on(BookActions.booksLoaded, (state, { books }) => {
-    return adapter.addMany(books, state);
+    return adapter.addMany(books, {...state, booksLoaded: true});
   }),
 
   on(BookActions.createBook, (state, { book }) => {
@@ -33,17 +33,10 @@ export const bookReducer = createReducer(
     return adapter.updateOne(update, state);
   }),
 
- on(BookActions.SetSelectedBook, (state, { book }) => state = {
-    ...state, setSelectedBook: book
+ on(BookActions.SetSelectedBook, (state, { book }) => {
+    return {...state, setSelectedBook: book };
   })
 );
 
-// get the selectors
-const { selectIds, selectEntities, selectAll } = adapter.getSelectors();
-// select the array of user ids
-export const selectBookIds = selectIds;
-// select the dictionary of user entities
-export const selectBookEntities = selectEntities;
-// select the array of users
-export const selectAllBook = selectAll;
+export const { selectAll, selectIds } = adapter.getSelectors();
 

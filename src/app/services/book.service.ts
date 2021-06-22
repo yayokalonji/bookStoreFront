@@ -15,8 +15,8 @@ export class BookService {
     return this.http.get<Book[]>(`${environment.url}`);
   }
 
-  addBook(payload: Book): Observable<string> {
-    return this.http.post<string>(`${environment.url}`, payload);
+  addBook(payload: Book): Observable<Book> {
+    return this.http.post<Book>(`${environment.url}`, payload);
   }
 
   updateBook(payload: Partial<Book>): Observable<Book> {

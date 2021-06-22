@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { bookActionTypes } from './book.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { BookService } from 'src/app/services/book.service';
-import { concatMap, map } from 'rxjs/operators';
+import { concatMap, map, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class BookEffects {
-  constructor(private bookService: BookService, private actions$: Actions) {}
+  constructor(private bookService: BookService, private actions$: Actions, private router: Router) {}
 
   loadBooks$ = createEffect(() =>
     this.actions$.pipe(
@@ -20,7 +21,8 @@ export class BookEffects {
     () =>
       this.actions$.pipe(
         ofType(bookActionTypes.createBook),
-        concatMap((action) => this.bookService.addBook(action.book))
+        concatMap((action) => this.bookService.addBook(action.book)),
+        tap(() => this.router.navigateByUrl('/'))
       ),
     { dispatch: false }
   );

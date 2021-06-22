@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
@@ -13,7 +13,7 @@ import { getBook } from './../../shared/store/book.selectors';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css'],
 })
-export class CreateComponent implements OnInit, OnDestroy, OnChanges {
+export class CreateComponent implements OnInit, OnDestroy {
   bookForm!: FormGroup;
   editBook = false;
   book$!: Observable<Book>;
@@ -26,7 +26,22 @@ export class CreateComponent implements OnInit, OnDestroy, OnChanges {
     this.createForm();
   }
   ngOnInit(): void {
-    this.loadChangeGetBook();
+    this.store.pipe(select(getBook)).subscribe(book => {
+      if (book.id){
+        this.formSubscription.add(
+          this.bookForm.patchValue({
+          id: book.id,
+          name: book.name,
+          price: book.price,
+          category: book.category,
+          author: book.author,
+          })
+        );
+        this.editBook = true;
+      }else{
+        this.editBook = false;
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -42,11 +57,6 @@ export class CreateComponent implements OnInit, OnDestroy, OnChanges {
       author: ['', Validators.required],
     });
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.loadChangeGetBook();
-  }
-
   onSubmit(): void {
     if (this.editBook) {
       const update: Update<Book> = {
@@ -69,27 +79,5 @@ export class CreateComponent implements OnInit, OnDestroy, OnChanges {
   clearForm(): void {
     this.editBook = false;
     this.bookForm.reset();
-  }
-
-  loadChangeGetBook(): void{
-    this.book$ = this.store.pipe(select(getBook));
-    if (this.book$){
-      this.formSubscription.add(
-        this.book$.subscribe((book) => {
-          if (book) {
-            this.bookForm.patchValue({
-              id: book.id,
-              name: book.name,
-              price: book.price,
-              category: book.category,
-              author: book.author,
-            });
-            this.editBook = true;
-          } else {
-            this.editBook = false;
-          }
-        })
-      );
-    }
   }
 }
