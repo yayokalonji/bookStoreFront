@@ -15,13 +15,18 @@ export const createBook = createAction(
 );
 
 export const deleteBooks = createAction(
-  '[Books List Operations] Delete Book',
+  '[Book Effect] Delete Book',
   props<{ bookId: string }>()
 );
 
 export const updateBooks = createAction(
-  '[Books List Operations] Update Book',
+  '[Books Effect] Update Book',
   props<{ update: Update<Book> }>()
+);
+
+export const SetSelectedBook = createAction(
+  '[Books Effect] Get Book',
+  props<{ book: Book }>()
 );
 
 export const bookActionTypes = {
@@ -30,4 +35,5 @@ export const bookActionTypes = {
   createBook,
   deleteBooks,
   updateBooks,
+  SetSelectedBook
 };

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: '/bookstore/api/books',
+  url: '/bookstore/api/books/',
 };
 
 /*
