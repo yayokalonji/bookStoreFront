@@ -9,8 +9,3 @@ export const getBook = createSelector(
   bookFeatureSelector,
   (state) => state.setSelectedBook
 );
-
-export const areBooksLoaded = createSelector(
-  bookFeatureSelector,
-  (state) => state.booksLoaded
-);

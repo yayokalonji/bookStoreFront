@@ -4,21 +4,19 @@ import { createReducer, on } from '@ngrx/store';
 import * as BookActions from './book.actions';
 
 export interface State extends EntityState<Book> {
-  booksLoaded: boolean;
   setSelectedBook: Book;
 }
 
 export const adapter: EntityAdapter<Book> = createEntityAdapter<Book>();
 
 export const initialState = adapter.getInitialState({
-  booksLoaded: false,
   setSelectedBook: {}
 });
 
 export const bookReducer = createReducer(
   initialState,
   on(BookActions.booksLoaded, (state, { books }) => {
-    return adapter.addMany(books, {...state, booksLoaded: true});
+    return adapter.setAll(books, state);
   }),
 
   on(BookActions.createBook, (state, { book }) => {
@@ -38,5 +36,5 @@ export const bookReducer = createReducer(
   })
 );
 
-export const { selectAll, selectIds } = adapter.getSelectors();
+export const { selectAll, selectIds, selectEntities, selectTotal } = adapter.getSelectors();
 
