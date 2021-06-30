@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { Book } from 'src/app/shared/models/book.model';
-import { bookActionTypes } from 'src/app/shared/store/book.actions';
-import { State } from 'src/app/store/reducers';
+import { Book } from '../../shared/models/book.model';
+import { bookActionTypes } from '../../shared/store/book.actions';
+import { State } from '../../shared/store/book.reducer';
 import { getBook } from './../../shared/store/book.selectors';
 
 @Component({

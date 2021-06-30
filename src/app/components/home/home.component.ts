@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Book } from 'src/app/shared/models/book.model';
+import { Book } from '../../shared/models/book.model';
 import { State } from './../../store/reducers/index';
 import { getAllBooks } from './../../shared/store/book.selectors';
 import { bookActionTypes } from './.././../shared/store/book.actions';
