@@ -7,16 +7,19 @@ export interface State extends EntityState<Book> {
   setSelectedBook: Book;
 }
 
-export const adapter: EntityAdapter<Book> = createEntityAdapter<Book>();
+export const adapter: EntityAdapter<Book> = createEntityAdapter<Book>({
+  selectId: book => book.id
+});
 
 export const initialState = adapter.getInitialState({
+  selectId: null,
   setSelectedBook: {}
 });
 
 export const bookReducer = createReducer(
   initialState,
   on(BookActions.booksLoaded, (state, { books }) => {
-    return adapter.setAll(books, state);
+    return adapter.addMany(books, state);
   }),
 
   on(BookActions.createBook, (state, { book }) => {

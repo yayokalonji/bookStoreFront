@@ -1,31 +1,32 @@
 import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
 import { Book } from '../models/book.model';
+import { ActionTypes } from '../models/enum.actiontypes';
 
 export const loadBooks = createAction('[Books List] Load Books via Service');
 
 export const booksLoaded = createAction(
-  '[Books Effect] Books Loaded Successfully',
+  ActionTypes.LOADS_BOOK,
   props<{ books: Book[] }>()
 );
 
 export const createBook = createAction(
-  '[Create Book Component] Create Book',
+  ActionTypes.CREATE_BOOK,
   props<{ book: Book }>()
 );
 
 export const deleteBooks = createAction(
-  '[Book Effect] Delete Book',
+  ActionTypes.DELETE_BOOK,
   props<{ bookId: string }>()
 );
 
 export const updateBooks = createAction(
-  '[Books Effect] Update Book',
+  ActionTypes.UPDATE_BOOK,
   props<{ update: Update<Book> }>()
 );
 
 export const SetSelectedBook = createAction(
-  '[Books Effect] Get Book',
+  ActionTypes.SET_BOOK,
   props<{ book: Book }>()
 );
 
@@ -35,5 +36,5 @@ export const bookActionTypes = {
   createBook,
   deleteBooks,
   updateBooks,
-  SetSelectedBook
+  SetSelectedBook,
 };

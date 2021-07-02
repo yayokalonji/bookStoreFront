@@ -22,7 +22,7 @@ export class BookEffects {
       this.actions$.pipe(
         ofType(bookActionTypes.createBook),
         concatMap((action) => this.bookService.addBook(action.book)),
-        tap(() => this.router.navigateByUrl('/'))
+        tap(() => window.location.reload())
       ),
     { dispatch: false }
   );
