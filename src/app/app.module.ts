@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreateComponent } from './components/create/create.component';
 import { HomeComponent } from './components/home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BookService } from './services/book.service';
 import { StoreModule } from '@ngrx/store';
@@ -16,6 +16,8 @@ import { bookReducer } from './shared/store/book.reducer';
 import { BookEffects } from './shared/store/book.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers, metaReducers } from './store/reducers';
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, CreateComponent, HomeComponent],
@@ -33,7 +35,13 @@ import { reducers, metaReducers } from './store/reducers';
     EffectsModule.forFeature([BookEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
-  providers: [BookService],
+  providers: [BookService, AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
