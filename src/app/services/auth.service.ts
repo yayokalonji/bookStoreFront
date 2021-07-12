@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,8 +10,6 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
   private readonly JWT_TOKEN = 'JWT_TOKEN';
-  private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
-  private loggedUser!: string;
 
   constructor(private http: HttpClient) {}
 
@@ -26,8 +25,7 @@ export class AuthService {
     return localStorage.getItem(this.JWT_TOKEN);
   }
 
-  private doLoginUser( userName: string, tokens: string): void{
-    this.loggedUser = userName;
+  private doLoginUser( tokens: string): void{
     this.storeTokens(tokens);
   }
 

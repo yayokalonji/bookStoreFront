@@ -10,6 +10,7 @@ import {
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { catchError, switchMap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -17,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  private user: { userName: string, password: string } = { userName: 'jackson', password: 'kalonji'};
+  private user: { userName: string, password: string } = { userName: environment.user, password: environment.key};
 
   constructor( public authService: AuthService) {}
 
@@ -26,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
       request = this.addToken(request, this.authService.getJwtToken());
     }
     return next.handle(request).pipe(catchError(error => {
-      if (error instanceof HttpErrorResponse && (error.status === 401 || error.status === 403)){
+      if (error instanceof HttpErrorResponse && (error.status === 401 || error.status === 403 || error.status === 500)){
         return this.handle401Error(request, next);
       }else {
         console.log(error);
