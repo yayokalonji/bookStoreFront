@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   url: '/bookstore/api/books/',
   url_token: 'bookstore/user/',
-  user: 'jackson',
-  key: 'kalonji'
+  user: 'yayo',
+  key: '123456'
 };
 
 /*

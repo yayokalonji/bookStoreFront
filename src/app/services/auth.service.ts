@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(user: { userName: string, password: string }): Observable<any> {
+  login(user: { username: string, password: string }): Observable<any> {
     return this.http.post<any>(`${environment.url_token}`, user);
   }
 

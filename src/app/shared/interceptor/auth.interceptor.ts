@@ -14,8 +14,8 @@ import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  private user: { userName: string; password: string } = {
-    userName: environment.user,
+  private user: { username: string; password: string } = {
+    username: environment.user,
     password: environment.key,
   };
 
@@ -45,7 +45,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ): HttpRequest<any> {
     return request.clone({
       headers: new HttpHeaders({
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       }),
     });
   }
